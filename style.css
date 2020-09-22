@@ -36,6 +36,10 @@ body {
                 height: 21.52vh;
             }
 
+            body div#container div#imagemEStatus div#pecaAtual {
+                
+            }
+
         /*TABULEIRO*/
         body div#container div#tabuleiro {
             width: 90%;
