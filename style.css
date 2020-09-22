@@ -20,24 +20,29 @@ body {
 }
 
     body div#container {
+        width: 90vw;
+        height: 90vh;
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
+
     }
         body div#container div#imagemEStatus {
             width: 35vw;
-            height: 90vh;
+            height: 60vh;
             border: 2px solid red;
         }
             /* LOGO */
             body div#container div#imagemEStatus img {
-                width: 62.08vh;
-                height: 21.52vh;
+                width: 31.54vw;
+                height: 10.76vw;
             }
 
-            body div#container div#imagemEStatus div#pecaAtual {
-                
+            body div#container div#imagemEStatus p{
+                color: black;
+                font-size: 24px;
+                text-align: center;
             }
 
         /*TABULEIRO*/
@@ -51,8 +56,8 @@ body {
 
         /*COLUNAS DO TABULEIRO*/
         body div#container div#tabuleiro div.column {
-            width: 15%;
-            height: 40%;
+            width: 12%;
+            height: 60%;
             border: 2px solid #000;
             border-collapse: collapse;
         }
