@@ -104,7 +104,8 @@ body {
                 height: 50%;
             }
 
-            body div#container div#imagemEStatus span {
+            body div#container div#imagemEStatus p#vertical {
+                display: block;
                 color: white;
                 font-weight: bolder;
                 font-size: 24px;
