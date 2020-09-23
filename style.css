@@ -41,9 +41,11 @@ body {
             flex-direction: column;
         }
 
+            /* TEXTO QUANDO ESTÁ NA VERTICAL */
             body div#container div#imagemEStatus p#vertical {
                 display: none;
             }
+
             /* LOGO */
             body div#container div#imagemEStatus img {
                 width: 31.54vw;
@@ -59,6 +61,13 @@ body {
                 font-size: 24px;
             }
 
+            body div#container div#imagemEStatus div#pecaAtual {
+                width: 15vh;
+                height: 15vh;
+                border-radius: 50%;
+                background-color: white;
+            }
+
         /*TABULEIRO*/
         body div#container div#tabuleiro {
             width: 60%;
@@ -70,11 +79,16 @@ body {
             border-radius: 20px;
         }
 
-        /*COLUNAS DO TABULEIRO*/
-        body div#container div#tabuleiro div.column {
-            width: 13%;
-            height: 90%;
-        }
+            /*COLUNAS DO TABULEIRO*/
+            body div#container div#tabuleiro div.column {
+                width: 13%;
+                height: 90%;
+                border-right: 1px solid black;
+            }
+
+            body div#container div#tabuleiro div#column1 {
+                border-left: 1px solid black;
+            }
 
 @media only screen and (max-width: 768px) and (orientation:portrait) {
     body {
@@ -82,7 +96,7 @@ body {
         /* MOZILA */
         -moz-transform: rotate(90deg);
         /* IE */
-        -ms-transform: rotate(-90deg);
+        -ms-transform: rotate(90deg);
         /* OPERA */
         -o-transform: rotate(90deg);
         /* INTERNET EXPLORER */
@@ -109,6 +123,8 @@ body {
                 font-weight: bolder;
                 font-size: 24px;
             }
+
+
 }
 
 /* TELA PARA COMPUTADOR */
