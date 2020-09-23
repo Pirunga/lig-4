@@ -41,13 +41,14 @@ body {
             flex-direction: column;
         }
 
+            /* TEXTO QUANDO ESTÁ NA VERTICAL */
             body div#container div#imagemEStatus p#vertical {
                 display: none;
             }
+
             /* LOGO */
             body div#container div#imagemEStatus img {
-                width: 31.54vw;
-                height: 10.76vw;
+                width: 30vw;
                 display: block;
                 margin: 0 auto;
             }
@@ -59,12 +60,12 @@ body {
                 font-size: 24px;
             }
 
-            body div#container div#imagemEStatus div#pecaAtual{
+            body div#container div#imagemEStatus div.discosColunas {
                 width: 15vh;
                 height: 15vh;
-                margin-top: 4vh;
+                margin: 5px auto;
                 border-radius: 50%;
-                background-color: white;
+                background-color: rgba(1, 20, 29, 0.1);
             }
 
         /*TABULEIRO*/
@@ -82,13 +83,31 @@ body {
             body div#container div#tabuleiro div.column {
                 width: 13%;
                 height: 90%;
-                border-right: 1px solid black;
+                border-right: 5px solid rgba(1, 20, 29, 0.1);
+            }
+
+            body div#container div#tabuleiro div#column6 {
+                border:none;
             }
             
-                body div#container div#tabuleiro div#column1 {
-                    border-left: 1px solid black;
-                }
+            /* dicos das colunas */
+        body div#container div#tabuleiro div.column .discosColunas{
+            width: 10vh;
+            height: 10vh;
+            margin: 5px auto;
+            border-radius: 50%;
+            background-color: rgba(1, 20, 29, 0.1);
+        } 
 
+        /* disco claro */
+        body div#container div#tabuleiro div.column .discoClaro{
+            background-color: #855BCC ;
+        }
+        
+        /* disco escuro */
+        body div#container div#tabuleiro div.column .discoEscuro{
+            background-color: #01141D ;
+        }
 
 @media only screen and (max-width: 768px) and (orientation:portrait) {
     body {
@@ -96,7 +115,7 @@ body {
         /* MOZILA */
         -moz-transform: rotate(90deg);
         /* IE */
-        -ms-transform: rotate(-90deg);
+        -ms-transform: rotate(90deg);
         /* OPERA */
         -o-transform: rotate(90deg);
         /* INTERNET EXPLORER */
@@ -134,11 +153,7 @@ body {
     }
         
         body div#container div#imagemEStatus img {
-            width: 62.08vw;
-            max-width: 100%;
-            height: 21.52vw;
-            max-height: 34.66%;
-            margin: 0;
+            width: 25vw;
         }
 
         body div#container div#imagemEStatus p {
