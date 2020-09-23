@@ -83,12 +83,31 @@ body {
             body div#container div#tabuleiro div.column {
                 width: 13%;
                 height: 90%;
-                border-right: 1px solid black;
+                border-right: 5px solid rgba(1, 20, 29, 0.1);
             }
 
-            body div#container div#tabuleiro div#column1 {
-                border-left: 1px solid black;
+            body div#container div#tabuleiro div#column6 {
+                border:none;
             }
+            
+            /* dicos das colunas */
+        body div#container div#tabuleiro div.column .discosColunas{
+            width: 90%;
+            height: 14.5%;
+            margin: 5px auto;
+            border-radius: 50%;
+            background-color: rgba(1, 20, 29, 0.1);
+        } 
+
+        /* disco claro */
+        body div#container div#tabuleiro div.column .discoClaro{
+            background-color: #855BCC ;
+        }
+        
+        /* disco escuro */
+        body div#container div#tabuleiro div.column .discoEscuro{
+            background-color: #01141D ;
+        }
 
 @media only screen and (max-width: 768px) and (orientation:portrait) {
     body {
@@ -123,8 +142,6 @@ body {
                 font-weight: bolder;
                 font-size: 24px;
             }
-
-
 }
 
 /* TELA PARA COMPUTADOR */
