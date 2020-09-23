@@ -6,24 +6,129 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     box-sizing: border-box;
     justify-content: center;
 }
+
 /*BODY*/
 body {
     width: 100vw;
     height: 100vh;
-    display: flex; 
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./img/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
-/*TABULEIRO*/
-    body div#tabuleiro {
-        width: 90%;
-        height: 100%;
+
+    body div#container {
+        width: 90vw;
+        height: 90vh;
         display: flex;
-        justify-content: center;
+        flex-direction: row;
+        justify-content: space-around;
         align-items: center;
     }
 
-    body div#tabuleiro div.column {
-        width: 15%;
-        height: 40%;
-        border: 2px solid #000;
-        border-collapse: collapse;
+        /* LADO ESQUERDO */
+        body div#container div#imagemEStatus {
+            width: 35vw;
+            height: 70vh;
+            text-align: center;
+            display:flex;
+            align-items: center;
+            justify-content: start;
+            flex-wrap: nowrap;
+            flex-direction: column;
+        }
+
+            body div#container div#imagemEStatus p#vertical {
+                display: none;
+            }
+            /* LOGO */
+            body div#container div#imagemEStatus img {
+                width: 31.54vw;
+                height: 10.76vw;
+                display: block;
+                margin: 0 auto;
+            }
+
+            /* TEXTO "PEÇA ATUAL:" */
+            body div#container div#imagemEStatus p{
+                color: white;
+                font-weight: bolder;
+                font-size: 24px;
+            }
+
+        /*TABULEIRO*/
+        body div#container div#tabuleiro {
+            width: 60%;
+            height: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #dad8d8c7;
+            border-radius: 20px;
+        }
+
+        /*COLUNAS DO TABULEIRO*/
+        body div#container div#tabuleiro div.column {
+            width: 13%;
+            height: 90%;
+        }
+
+
+@media only screen and (max-width: 768px) and (orientation:portrait) {
+    body {
+        -webkit-transform: rotate(90deg);
+        /* MOZILA */
+        -moz-transform: rotate(90deg);
+        /* IE */
+        -ms-transform: rotate(-90deg);
+        /* OPERA */
+        -o-transform: rotate(90deg);
+        /* INTERNET EXPLORER */
+        filter: progid:DXImageTransform.Microsoft.BasicImage(rotation = 1);
+        
+        transform: rotate(90deg);
     }
+
+        body div#container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: flex-start;
+        }
+
+            body div#container div#tabuleiro {
+                width: 60%;
+                height: 50%;
+            }
+
+            body div#container div#imagemEStatus p#vertical {
+                display: block;
+                color: white;
+                font-weight: bolder;
+                font-size: 24px;
+            }
+}
+
+/* TELA PARA COMPUTADOR */
+@media only screen and (min-width: 768px){
+   
+    body div#container div#imagemEStatus {
+        width: 35vw;
+        height: 75vh;
+    }
+        
+        body div#container div#imagemEStatus img {
+            width: 62.08vw;
+            max-width: 100%;
+            height: 21.52vw;
+            max-height: 34.66%;
+            margin: 0;
+        }
+
+        body div#container div#imagemEStatus p {
+            font-size: 48px;
+        }
+}
