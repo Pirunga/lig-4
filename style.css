@@ -76,7 +76,6 @@ body {
             height: 90%;
         }
 
-
 @media only screen and (max-width: 768px) and (orientation:portrait) {
     body {
         -webkit-transform: rotate(90deg);
