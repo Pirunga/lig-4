@@ -27,10 +27,10 @@ const mainFunction = function (event) {
 }
 
 //eventListeners
+document.getElementById('column0').addEventListener('click', mainFunction)
 document.getElementById('column1').addEventListener('click', mainFunction)
 document.getElementById('column2').addEventListener('click', mainFunction)
 document.getElementById('column3').addEventListener('click', mainFunction)
 document.getElementById('column4').addEventListener('click', mainFunction)
 document.getElementById('column5').addEventListener('click', mainFunction)
 document.getElementById('column6').addEventListener('click', mainFunction)
-document.getElementById('column7').addEventListener('click', mainFunction)
