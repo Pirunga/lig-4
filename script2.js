@@ -49,7 +49,53 @@ function win() {
         }
     }
 
-    //Verifica a vitória na diagonal 
+    //Verifica a vitória na diagonal (Diagonal Secundária) 
+    for(let y = 0; y < tabuleiroMatriz.length - 3; y++){
+        for(let x = 0; x < tabuleiroMatriz[0].length - 3; x++) {
+          
+            if(tabuleiroMatriz[y][x] !== ' ') {
+            
+                if(tabuleiroMatriz[y][x] === tabuleiroMatriz[y+1][x+1]) {
+                    
+                    if(tabuleiroMatriz[y][x] === tabuleiroMatriz[y+2][x+2]) {
+                        
+                        if(tabuleiroMatriz[y][x] === tabuleiroMatriz[y+3][x+3]) {
+                            console.log('acabou')
+                            getContainer.innerHTML = ''
+                            getContainer.innerText = 'Ganhou!'
+                        }
+                    }
+                }
+            }
+
+            if (diskCounter === 3) {
+                console.log('acabou')
+                getContainer.innerHTML = ''
+                getContainer.innerText = 'Ganhou!'
+            }
+        }
+    }
+
+    //Verifica a vitória na diagonal (Diagonal principal) 
+    for(let y = 3; y < tabuleiroMatriz.length; y++){
+        for(let x = 0; x < tabuleiroMatriz[0].length - 3; x++) {
+          
+          if(tabuleiroMatriz[y][x] !== ' ') {
+            
+            if(tabuleiroMatriz[y][x] === tabuleiroMatriz[y-1][x+1]) {
+                
+                if(tabuleiroMatriz[y][x] === tabuleiroMatriz[y-2][x+2]) {
+                    
+                    if(tabuleiroMatriz[y][x] === tabuleiroMatriz[y-3][x+3]) {
+                        console.log('acabou')
+                        getContainer.innerHTML = ''
+                        getContainer.innerText = 'Ganhou!'
+                    }
+                }
+            }
+          }
+        }
+      }
 }
 
 //Função que preenche a matriz
