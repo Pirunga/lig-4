@@ -1,4 +1,6 @@
-let tabuleiro = [
+//Variáveis de escopo global
+let count = 0
+let tabuleiroMatriz = [
     [" ", " ", " ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " ", " ", " "],
@@ -7,160 +9,191 @@ let tabuleiro = [
     [" ", " ", " ", " ", " ", " ", " "],
 ];
 
+//Inicia a cor da peça atual como a mais clara
+let getDivPecaAtual = document.getElementById('pecaAtual')
+getDivPecaAtual.style.backgroundColor = '#855bcc'
 
-function criarDisco() {
-    let cont = 0;
-    for (let i = 0; i < 7; i++) {
-        let column = document.getElementById(`column${i}`);
-        for (let y = 0; y < 6; y++) {
-            let disco = document.createElement('div');
-            disco.className = 'discosColunas'
-            let id = document.createAttribute('id')
-            cont++;
-            id.value = 'div-' + (cont)
-            disco.setAttributeNode(id)
-            // disco.style.display = 'none'
-            column.appendChild(disco);
-            console.log(disco)
+//Função que chega as possíveis condições de vitória
+function win(pecaAtual) {
+    let getContainer = document.getElementById('container')
+    let diskCounter = 0
+    //Verifica a vitória na horizontal
+    for (let i = 0; i < tabuleiroMatriz.length; i++) {
+        for (let j = 0; j < tabuleiroMatriz[i].length - 1; j++) {
+            if (tabuleiroMatriz[i][j] !== ' ' && (tabuleiroMatriz[i][j] === tabuleiroMatriz[i][j + 1])) {
+                diskCounter += 1
+            } else {
+                diskCounter = 0
+            }
+            if (diskCounter === 3) {
+
+                setTimeout(function () {
+                    document.location.reload(true);
+                }, 2000);
+
+                getContainer.innerHTML = ''
+                getContainer.innerText = `${pecaAtualWin(pecaAtual)} Ganhou!`
+            }
         }
     }
+
+    //Verifica a vitória na vertical
+    for (let i = 0; i < tabuleiroMatriz[0].length; i++) {
+        for (let j = 0; j < tabuleiroMatriz.length - 1; j++) {
+            if (tabuleiroMatriz[j][i] !== ' ' && (tabuleiroMatriz[j][i] === tabuleiroMatriz[j + 1][i])) {
+                diskCounter += 1
+            } else {
+                diskCounter = 0
+            }
+            if (diskCounter === 3) {
+
+                setTimeout(function () {
+                    document.location.reload(true);
+                }, 2000);
+
+                getContainer.innerHTML = ''
+                getContainer.innerText = `${pecaAtualWin(pecaAtual)} Ganhou!`
+            }
+        }
+    }
+
+    //Verifica a vitória na diagonal (Diagonal Secundária) 
+    for (let y = 0; y < tabuleiroMatriz.length - 3; y++) {
+        for (let x = 0; x < tabuleiroMatriz[0].length - 3; x++) {
+
+            if (tabuleiroMatriz[y][x] !== ' ') {
+
+                if (tabuleiroMatriz[y][x] === tabuleiroMatriz[y + 1][x + 1]) {
+
+                    if (tabuleiroMatriz[y][x] === tabuleiroMatriz[y + 2][x + 2]) {
+
+                        if (tabuleiroMatriz[y][x] === tabuleiroMatriz[y + 3][x + 3]) {
+                            setTimeout(function () {
+                                document.location.reload(true);
+                            }, 2000);
+                            getContainer.innerHTML = ''
+                            getContainer.innerText = `${pecaAtualWin(pecaAtual)} Ganhou!`
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //Verifica a vitória na diagonal (Diagonal principal) 
+    for (let y = 3; y < tabuleiroMatriz.length; y++) {
+        for (let x = 0; x < tabuleiroMatriz[0].length - 3; x++) {
+
+            if (tabuleiroMatriz[y][x] !== ' ') {
+
+                if (tabuleiroMatriz[y][x] === tabuleiroMatriz[y - 1][x + 1]) {
+
+                    if (tabuleiroMatriz[y][x] === tabuleiroMatriz[y - 2][x + 2]) {
+
+                        if (tabuleiroMatriz[y][x] === tabuleiroMatriz[y - 3][x + 3]) {
+                            setTimeout(function () {
+                                document.location.reload(true);
+                            }, 2000);
+                            getContainer.innerHTML = ''
+                            getContainer.innerText = `${pecaAtualWin(pecaAtual)} Ganhou!`
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //Verifica se houve empate
+    for (let i = 0; i < tabuleiroMatriz.length; i++) {
+        for (let j = 0; j < tabuleiroMatriz[i].length; j++) {
+            if (tabuleiroMatriz[i][j] !== ' ') {
+                diskCounter++
+            } else {
+                diskCounter = 0
+            }
+        }
+    }
+    if (diskCounter === 42) {
+        setTimeout(function () {
+            document.location.reload(true);
+        }, 2000);
+        getContainer.innerHTML = ''
+        getContainer.innerText = 'Empatou!'
+    }
 }
-criarDisco();
 
-//Função principal que contém tudo que o jogo precisa para funcionar
-const mainFunction = function (event) {
-    //O código vai aqui!
+//Função que preenche a matriz
+function addMatriz(column, child, disc) {
+    switch (column.id) {
+        case 'column0':
+            tabuleiroMatriz[5 - child][0] = disc;
+            break;
+        case 'column1':
+            tabuleiroMatriz[5 - child][1] = disc;
+            break;
+        case 'column2':
+            tabuleiroMatriz[5 - child][2] = disc;
+            break;
+        case 'column3':
+            tabuleiroMatriz[5 - child][3] = disc;
+            break;
+        case 'column4':
+            tabuleiroMatriz[5 - child][4] = disc;
+            break;
+        case 'column5':
+            tabuleiroMatriz[5 - child][5] = disc;
+            break;
+        case 'column6':
+            tabuleiroMatriz[5 - child][6] = disc;
+            break;
+    }
+}
 
-    //Criar discos dinamicamente (nas colunas e em peça atual, por ora não se preocupe em alterar a ordem dos jogadores, mas crie os discos nas duas cores (Filipe)
-    //Criar condição que permita que não sejam inseridos mais discos do que a coluna permite (Filipe)
-    //Realizar o revezamento das peças (Erica)
-    //Registrar a cor dos discos e posição em uma matriz que representa o tabuleiro (Erica)
-    //Condições de vitória e empate:
-    // * Horizontal: Cirineu
-    // * Vertical: Erica
-    // * Diagonal: Luiz
-    //Criar um botão de start no início da partida e de restart no final (Luiz)
+const pecaAtualWin = (pecaAtual) => {
+    let textWin = 'Roxo'
+
+    if (pecaAtual === 'P') {
+        textWin = 'Preto'
+    }
+    return textWin
+}
+
+//Função principal do jogo, faz a criação dos discos, revezamento dos jogadores, preenchimento da matriz, chega as condições de vitória e empate
+const mainFunction = (event) => {
+    const disco = document.createElement('div')
+    const column = event.currentTarget
+    let child = column.childElementCount
+    let pecaAtual = "R"
+
+    if (child < 6) {
+        if (count % 2 === 0) {
+            disco.className = 'discosColunas'
+            disco.classList.add('discoClaro')
+            column.appendChild(disco)
+            addMatriz(column, child, "R")
+            getDivPecaAtual.style.backgroundColor = '#01141D'
+            count++
+            win(pecaAtual)
+            pecaAtual = "P"
+        } else {
+            disco.className = 'discosColunas'
+            disco.classList.add('discoEscuro')
+            addMatriz(column, child, "P")
+            column.appendChild(disco)
+            getDivPecaAtual.style.backgroundColor = '#855bcc'
+            count++
+            win(pecaAtual)
+            pecaAtual = "R"
+        }
+    }
+
 }
 
 //eventListeners
-document.getElementById('column0').addEventListener('click', mainFunction0)
-document.getElementById('column1').addEventListener('click', mainFunction1)
-document.getElementById('column2').addEventListener('click', mainFunction2)
-document.getElementById('column3').addEventListener('click', mainFunction3)
-document.getElementById('column4').addEventListener('click', mainFunction4)
-document.getElementById('column5').addEventListener('click', mainFunction5)
-document.getElementById('column6').addEventListener('click', mainFunction6)
-
-
-//Função principal que contém tudo que o jogo precisa para funcionar
-let contador = 1
-let cont = 6   
-function mainFunction0() {
-    if (contador % 2 == 1){
-        let divblack = window.document.getElementById('div-' + (cont)) 
-        divblack.style.background = "black"
-        cont = cont -1
-        contador = contador + 1
-    }       
-    else{    
-        let divpurple = window.document.getElementById('div-' + (cont)) 
-        divpurple.style.background = "purple"
-        cont = cont -1
-        contador = contador + 1
-        }
-    }    
-    
-let cont1 = 12
-function mainFunction1() {
-    if (contador % 2 == 1){
-        let divblack = window.document.getElementById('div-' + (cont1)) 
-        divblack.style.background = "black"
-        cont1 = cont1 -1
-        contador = contador + 1
-    }       
-    else{    
-        let divpurple = window.document.getElementById('div-' + (cont1)) 
-        divpurple.style.background = "purple"
-        cont1 = cont1 -1
-        contador = contador + 1
-        }
-    }    
-        
-let cont2 = 18
-function mainFunction2() {
-    if (contador % 2 == 1){
-        let divblack = window.document.getElementById('div-' + (cont2)) 
-        divblack.style.background = "black"
-        cont2 = cont2 -1
-        contador = contador + 1
-    }       
-    else{    
-            let divpurple = window.document.getElementById('div-' + (cont2)) 
-            divpurple.style.background = "purple"
-            cont2 = cont2 -1
-            contador = contador + 1
-        }
-    }    
-let cont3 = 24
-function mainFunction3() {
-    if (contador % 2 == 1){
-        let divblack = window.document.getElementById('div-' + (cont3)) 
-        divblack.style.background = "black"
-        cont3 = cont3 -1
-        contador = contador + 1
-    }       
-    else{    
-        let divpurple = window.document.getElementById('div-' + (cont3)) 
-        divpurple.style.background = "purple"
-        cont3 = cont3 -1
-        contador = contador + 1
-        }
-}    
-
-let cont4 = 30
-function mainFunction4() {
-    if (contador % 2 == 1){
-        let divblack = window.document.getElementById('div-' + (cont4)) 
-        divblack.style.background = "black"
-        cont4 = cont4 -1
-        contador = contador + 1
-    }       
-    else{    
-        let divpurple = window.document.getElementById('div-' + (cont4)) 
-        divpurple.style.background = "purple"
-        cont4 = cont4 -1
-        contador = contador + 1
-        }
-}    
-         
-let cont5 = 36
-function mainFunction5() {
-    if (contador % 2 == 1){
-        let divblack = window.document.getElementById('div-' + (cont5)) 
-        divblack.style.background = "black"
-        cont5 = cont5 -1
-        contador = contador + 1
-    }       
-    else{    
-        let divpurple = window.document.getElementById('div-' + (cont5)) 
-        divpurple.style.background = "purple"
-        cont5 = cont5 -1
-        contador = contador + 1
-        }
-}        
-    
-let cont6 = 42
-function mainFunction6() {
-    if (contador % 2 == 1){
-        let divblack = window.document.getElementById('div-' + (cont6)) 
-        divblack.style.background = "black"
-        cont6 = cont6 -1
-        contador = contador + 1
-    }       
-    else{    
-        let divpurple = window.document.getElementById('div-' + (cont6)) 
-        divpurple.style.background = "purple"
-        cont6 = cont6 -1
-        contador = contador + 1
-        }
-}        
+document.getElementById('column0').addEventListener('click', mainFunction)
+document.getElementById('column1').addEventListener('click', mainFunction)
+document.getElementById('column2').addEventListener('click', mainFunction)
+document.getElementById('column3').addEventListener('click', mainFunction)
+document.getElementById('column4').addEventListener('click', mainFunction)
+document.getElementById('column5').addEventListener('click', mainFunction)
+document.getElementById('column6').addEventListener('click', mainFunction)
