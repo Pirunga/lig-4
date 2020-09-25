@@ -27,6 +27,9 @@ body {
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
+        font-size: 48px;
+        font-weight: bolder;
+        color: white;
     }
 
         /* LADO ESQUERDO */
@@ -92,23 +95,23 @@ body {
                 border:none;
             }
             
-            /* dicos das colunas */
-        body div#container div#tabuleiro div.column .discosColunas{
-            width: 5vw;
-            height: 5vw;
-            border-radius: 50%;
-            margin: 2%;
-        } 
+                  /* dicos das colunas */
+                body div#container div#tabuleiro div.column .discosColunas{
+                    width: 5vw;
+                    height: 5vw;
+                    border-radius: 50%;
+                    margin: 2%;
+                } 
 
-        /* disco claro */
-        body div#container div#tabuleiro div.column .discoClaro{
-            background-color: #855bcc ;
-        }
-        
-        /* disco escuro */
-        body div#container div#tabuleiro div.column .discoEscuro{
-            background-color: #01141D ;
-        }
+                /* disco claro */
+                body div#container div#tabuleiro div.column .discoClaro{
+                    background-color: #855bcc ;
+                }
+                
+                /* disco escuro */
+                body div#container div#tabuleiro div.column .discoEscuro{
+                    background-color: #01141D ;
+                }
 
 @media only screen and (max-width: 768px) and (orientation:portrait) {
     body {
