@@ -1,5 +1,16 @@
+/*
+Jogo: Lig-4
+Desenvolvido por:
+    Cirineu Rodrigues
+    Érica Laboissiere
+    Filipe Natividade
+    Luiz Almeida
+Versão: 1.0
+*/
+
 //Variáveis de escopo global
 let count = 0
+let pecaAtual = "R"
 let tabuleiroMatriz = [
     [" ", " ", " ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " ", " ", " "],
@@ -26,13 +37,12 @@ function win(pecaAtual) {
                 diskCounter = 0
             }
             if (diskCounter === 3) {
-
                 setTimeout(function () {
                     document.location.reload(true);
                 }, 2000);
-
                 getContainer.innerHTML = ''
                 getContainer.innerText = `${pecaAtualWin(pecaAtual)} Ganhou!`
+                console.log('h')
             }
         }
     }
@@ -42,17 +52,17 @@ function win(pecaAtual) {
         for (let j = 0; j < tabuleiroMatriz.length - 1; j++) {
             if (tabuleiroMatriz[j][i] !== ' ' && (tabuleiroMatriz[j][i] === tabuleiroMatriz[j + 1][i])) {
                 diskCounter += 1
+                console.log(diskCounter)
             } else {
                 diskCounter = 0
             }
             if (diskCounter === 3) {
-
                 setTimeout(function () {
                     document.location.reload(true);
                 }, 2000);
-
                 getContainer.innerHTML = ''
                 getContainer.innerText = `${pecaAtualWin(pecaAtual)} Ganhou!`
+                console.log('v')
             }
         }
     }
@@ -73,6 +83,7 @@ function win(pecaAtual) {
                             }, 2000);
                             getContainer.innerHTML = ''
                             getContainer.innerText = `${pecaAtualWin(pecaAtual)} Ganhou!`
+                            console.log('d1')
                         }
                     }
                 }
@@ -96,6 +107,7 @@ function win(pecaAtual) {
                             }, 2000);
                             getContainer.innerHTML = ''
                             getContainer.innerText = `${pecaAtualWin(pecaAtual)} Ganhou!`
+                            console.log('d2')
                         }
                     }
                 }
@@ -120,6 +132,17 @@ function win(pecaAtual) {
         getContainer.innerHTML = ''
         getContainer.innerText = 'Empatou!'
     }
+    console.log(tabuleiroMatriz)
+}
+
+//Função que retorna a peça atual que será usada para identificar o vencedor
+const pecaAtualWin = (pecaAtual) => {
+    let textWin = 'Roxo'
+
+    if (pecaAtual === 'P') {
+        textWin = 'Preto'
+    }
+    return textWin
 }
 
 //Função que preenche a matriz
@@ -149,21 +172,11 @@ function addMatriz(column, child, disc) {
     }
 }
 
-const pecaAtualWin = (pecaAtual) => {
-    let textWin = 'Roxo'
-
-    if (pecaAtual === 'P') {
-        textWin = 'Preto'
-    }
-    return textWin
-}
-
 //Função principal do jogo, faz a criação dos discos, revezamento dos jogadores, preenchimento da matriz, chega as condições de vitória e empate
 const mainFunction = (event) => {
     const disco = document.createElement('div')
     const column = event.currentTarget
     let child = column.childElementCount
-    let pecaAtual = "R"
 
     if (child < 6) {
         if (count % 2 === 0) {
@@ -173,8 +186,8 @@ const mainFunction = (event) => {
             addMatriz(column, child, "R")
             getDivPecaAtual.style.backgroundColor = '#01141D'
             count++
+            pecaAtual = "R"
             win(pecaAtual)
-            pecaAtual = "P"
         } else {
             disco.className = 'discosColunas'
             disco.classList.add('discoEscuro')
@@ -182,8 +195,8 @@ const mainFunction = (event) => {
             column.appendChild(disco)
             getDivPecaAtual.style.backgroundColor = '#855bcc'
             count++
+            pecaAtual = "P"
             win(pecaAtual)
-            pecaAtual = "R"
         }
     }
 
