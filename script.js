@@ -24,11 +24,9 @@ let tabuleiroMatriz = [
 let getDivPecaAtual = document.getElementById('pecaAtual')
 getDivPecaAtual.style.backgroundColor = '#855bcc'
 
-//Função que chega as possíveis condições de vitória
-function win(pecaAtual) {
-    let getContainer = document.getElementById('container')
-    let diskCounter = 0
-    //Verifica a vitória na horizontal
+const horizontalWin = (getContainer) => {
+    let diskCounter = 0;
+    
     for (let i = 0; i < tabuleiroMatriz.length; i++) {
         for (let j = 0; j < tabuleiroMatriz[i].length - 1; j++) {
             if (tabuleiroMatriz[i][j] !== ' ' && (tabuleiroMatriz[i][j] === tabuleiroMatriz[i][j + 1])) {
@@ -42,56 +40,36 @@ function win(pecaAtual) {
                 }, 2000);
                 getContainer.innerHTML = ''
                 getContainer.innerText = `${pecaAtualWin(pecaAtual)} Ganhou!`
-                console.log('h')
             }
         }
     }
+}
 
-    //Verifica a vitória na vertical
-    for (let i = 0; i < tabuleiroMatriz[0].length; i++) {
-        for (let j = 0; j < tabuleiroMatriz.length - 1; j++) {
-            if (tabuleiroMatriz[j][i] !== ' ' && (tabuleiroMatriz[j][i] === tabuleiroMatriz[j + 1][i])) {
-                diskCounter += 1
-                console.log(diskCounter)
-            } else {
-                diskCounter = 0
-            }
-            if (diskCounter === 3) {
-                setTimeout(function () {
-                    document.location.reload(true);
-                }, 2000);
-                getContainer.innerHTML = ''
-                getContainer.innerText = `${pecaAtualWin(pecaAtual)} Ganhou!`
-                console.log('v')
-            }
-        }
-    }
+const verticalWin = (getContainer) => {
+    for (let i = 0; i < tabuleiroMatriz.length - 3; i++) {
+        for (let j = 0; j < tabuleiroMatriz[0].length; j++) {
+            if (tabuleiroMatriz[i][j] !== ' ') {
+                if (tabuleiroMatriz[i + 1][j] === tabuleiroMatriz[i][j]) {
 
-    //Verifica a vitória na diagonal (Diagonal Secundária) 
-    for (let y = 0; y < tabuleiroMatriz.length - 3; y++) {
-        for (let x = 0; x < tabuleiroMatriz[0].length - 3; x++) {
+                    if (tabuleiroMatriz[i + 2][j] === tabuleiroMatriz[i][j]) {
 
-            if (tabuleiroMatriz[y][x] !== ' ') {
+                        if (tabuleiroMatriz[i + 3][j] === tabuleiroMatriz[i][j]) {
 
-                if (tabuleiroMatriz[y][x] === tabuleiroMatriz[y + 1][x + 1]) {
-
-                    if (tabuleiroMatriz[y][x] === tabuleiroMatriz[y + 2][x + 2]) {
-
-                        if (tabuleiroMatriz[y][x] === tabuleiroMatriz[y + 3][x + 3]) {
                             setTimeout(function () {
                                 document.location.reload(true);
                             }, 2000);
+
                             getContainer.innerHTML = ''
                             getContainer.innerText = `${pecaAtualWin(pecaAtual)} Ganhou!`
-                            console.log('d1')
                         }
                     }
                 }
             }
         }
     }
+}
 
-    //Verifica a vitória na diagonal (Diagonal principal) 
+const primaryDiagonalWin = (getContainer) => {
     for (let y = 3; y < tabuleiroMatriz.length; y++) {
         for (let x = 0; x < tabuleiroMatriz[0].length - 3; x++) {
 
@@ -107,15 +85,39 @@ function win(pecaAtual) {
                             }, 2000);
                             getContainer.innerHTML = ''
                             getContainer.innerText = `${pecaAtualWin(pecaAtual)} Ganhou!`
-                            console.log('d2')
                         }
                     }
                 }
             }
         }
     }
+}
 
-    //Verifica se houve empate
+const secondaryDiagonalWIn = (getContainer) => {
+    for (let y = 0; y < tabuleiroMatriz.length - 3; y++) {
+        for (let x = 0; x < tabuleiroMatriz[0].length - 3; x++) {
+
+            if (tabuleiroMatriz[y][x] !== ' ') {
+
+                if (tabuleiroMatriz[y][x] === tabuleiroMatriz[y + 1][x + 1]) {
+
+                    if (tabuleiroMatriz[y][x] === tabuleiroMatriz[y + 2][x + 2]) {
+
+                        if (tabuleiroMatriz[y][x] === tabuleiroMatriz[y + 3][x + 3]) {
+                            setTimeout(function () {
+                                document.location.reload(true);
+                            }, 2000);
+                            getContainer.innerHTML = ''
+                            getContainer.innerText = `${pecaAtualWin(pecaAtual)} Ganhou!`
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+const drawVerification = () => {
     for (let i = 0; i < tabuleiroMatriz.length; i++) {
         for (let j = 0; j < tabuleiroMatriz[i].length; j++) {
             if (tabuleiroMatriz[i][j] !== ' ') {
@@ -125,6 +127,7 @@ function win(pecaAtual) {
             }
         }
     }
+
     if (diskCounter === 42) {
         setTimeout(function () {
             document.location.reload(true);
@@ -132,7 +135,17 @@ function win(pecaAtual) {
         getContainer.innerHTML = ''
         getContainer.innerText = 'Empatou!'
     }
-    console.log(tabuleiroMatriz)
+}
+
+//Função que chega as possíveis condições de vitória
+const win = (pecaAtual) => {
+    let getContainer = document.getElementById('container')
+
+    horizontalWin(getContainer);
+    verticalWin(getContainer);
+    primaryDiagonalWin(getContainer);
+    secondaryDiagonalWIn(getContainer);
+    drawVerification();
 }
 
 //Função que retorna a peça atual que será usada para identificar o vencedor
@@ -172,14 +185,24 @@ function addMatriz(column, child, disc) {
     }
 }
 
+const canReceiveNewDisc = (column) => {
+    const maxDiscInColumn = 6;
+
+    return column.childElementCount < maxDiscInColumn;
+}
+
+const isPurplePlayer = (count) => {
+    return count % 2 === 0;
+}
+
 //Função principal do jogo, faz a criação dos discos, revezamento dos jogadores, preenchimento da matriz, chega as condições de vitória e empate
 const mainFunction = (event) => {
     const disco = document.createElement('div')
     const column = event.currentTarget
     let child = column.childElementCount
 
-    if (child < 6) {
-        if (count % 2 === 0) {
+    if (canReceiveNewDisc(column)) {
+        if (isPurplePlayer(count)) {
             disco.className = 'discosColunas'
             disco.classList.add('discoClaro')
             column.appendChild(disco)
@@ -203,10 +226,10 @@ const mainFunction = (event) => {
 }
 
 //eventListeners
-document.getElementById('column0').addEventListener('click', mainFunction)
-document.getElementById('column1').addEventListener('click', mainFunction)
-document.getElementById('column2').addEventListener('click', mainFunction)
-document.getElementById('column3').addEventListener('click', mainFunction)
-document.getElementById('column4').addEventListener('click', mainFunction)
-document.getElementById('column5').addEventListener('click', mainFunction)
-document.getElementById('column6').addEventListener('click', mainFunction)
+const addListeners = () => {
+    for (let i = 0; i < 7; i++) {
+        document.getElementById(`column${i}`).addEventListener('click', mainFunction)
+    }
+}
+
+addListeners();
